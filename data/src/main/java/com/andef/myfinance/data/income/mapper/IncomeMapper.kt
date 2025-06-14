@@ -1,8 +1,8 @@
 package com.andef.myfinance.data.income.mapper
 
 import com.andef.myfinance.data.income.dbmodel.IncomeDbModel
-import com.andef.myfinance.data.utils.toInt
-import com.andef.myfinance.data.utils.toLocalDate
+import com.andef.myfinance.data.toInt
+import com.andef.myfinance.data.toLocalDate
 import com.andef.myfinance.domain.income.entities.Income
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
