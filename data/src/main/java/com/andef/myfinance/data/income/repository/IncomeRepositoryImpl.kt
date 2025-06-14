@@ -2,7 +2,7 @@ package com.andef.myfinance.data.income.repository
 
 import com.andef.myfinance.data.income.datasource.IncomeDao
 import com.andef.myfinance.data.income.mapper.IncomeMapper
-import com.andef.myfinance.data.utils.toInt
+import com.andef.myfinance.data.toInt
 import com.andef.myfinance.domain.income.entities.Income
 import com.andef.myfinance.domain.income.entities.IncomeCategory
 import com.andef.myfinance.domain.income.repository.IncomeRepository

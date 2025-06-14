@@ -1,4 +1,4 @@
-package com.andef.myfinance.data.utils
+package com.andef.myfinance.data
 
 import java.time.LocalDate
 
