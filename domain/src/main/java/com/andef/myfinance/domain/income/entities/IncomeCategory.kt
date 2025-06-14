@@ -1,5 +1,12 @@
 package com.andef.myfinance.domain.income.entities
 
+import com.andef.myfinance.domain.income.entities.IncomeCategory.BANK
+import com.andef.myfinance.domain.income.entities.IncomeCategory.GIFTS
+import com.andef.myfinance.domain.income.entities.IncomeCategory.LUCK
+import com.andef.myfinance.domain.income.entities.IncomeCategory.OTHER
+import com.andef.myfinance.domain.income.entities.IncomeCategory.SALARY
+
+
 /**
  * Категория дохода
  *
