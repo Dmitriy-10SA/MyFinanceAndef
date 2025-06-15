@@ -1,12 +1,12 @@
-package com.andef.myfinance.presentation.navigation.graph
+package com.andef.myfinance.navigation.graph
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.andef.myfinance.presentation.ViewModelFactory
-import com.andef.myfinance.presentation.navigation.Screen
+import com.andef.myfinance.ViewModelFactory
+import com.andef.myfinance.navigation.Screen
 
 fun NavGraphBuilder.mainScreensNavGraph(
     navHostController: NavHostController,

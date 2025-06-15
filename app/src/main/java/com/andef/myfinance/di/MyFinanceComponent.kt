@@ -7,7 +7,7 @@ import com.andef.myfinance.di.expense.ExpenseRepositoryModule
 import com.andef.myfinance.di.income.IncomeDaoModule
 import com.andef.myfinance.di.income.IncomeRepositoryModule
 import com.andef.myfinance.di.viewmodel.ViewModelModule
-import com.andef.myfinance.presentation.ViewModelFactory
+import com.andef.myfinance.ViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

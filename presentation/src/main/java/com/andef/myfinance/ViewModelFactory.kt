@@ -1,4 +1,4 @@
-package com.andef.myfinance.presentation
+package com.andef.myfinance
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
