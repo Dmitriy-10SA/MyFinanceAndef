@@ -6,6 +6,7 @@ import com.andef.myfinance.di.expense.ExpenseDaoModule
 import com.andef.myfinance.di.expense.ExpenseRepositoryModule
 import com.andef.myfinance.di.income.IncomeDaoModule
 import com.andef.myfinance.di.income.IncomeRepositoryModule
+import com.andef.myfinance.di.viewmodel.ViewModelModule
 import com.andef.myfinance.presentation.ViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
@@ -15,7 +16,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         //viewmodel
-        //ViewModelModule::class,
+        ViewModelModule::class,
         //expense
         ExpenseRepositoryModule::class,
         ExpenseDaoModule::class,
@@ -27,7 +28,7 @@ import javax.inject.Singleton
 interface MyFinanceComponent {
     fun inject(mainActivity: MainActivity)
 
-    //val viewModelFactory: ViewModelFactory
+    val viewModelFactory: ViewModelFactory
 
     @Component.Factory
     interface Factory {
