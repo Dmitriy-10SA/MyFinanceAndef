@@ -1,4 +1,4 @@
-package com.andef.myfinance.ui.theme
+package com.andef.myfinance.design.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

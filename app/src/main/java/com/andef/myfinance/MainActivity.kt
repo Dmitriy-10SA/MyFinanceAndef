@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.andef.myfinance.ui.theme.MyFinanceAndefTheme
+import com.andef.myfinance.design.ui.theme.MyFinanceAndefTheme
 
 class MainActivity : ComponentActivity() {
     private val component by lazy {
