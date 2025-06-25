@@ -46,6 +46,9 @@ android {
 }
 
 dependencies {
+    //System UI controller
+    implementation(libs.accompanist.systemuicontroller)
+
     //Jetpack compose navigation
     implementation(libs.androidx.navigation.compose)
 

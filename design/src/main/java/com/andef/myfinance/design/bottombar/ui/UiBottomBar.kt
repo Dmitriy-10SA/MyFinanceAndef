@@ -7,6 +7,8 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -17,19 +19,29 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.andef.myfinance.design.R
 import com.andef.myfinance.design.bottombar.item.UiBottomBarItem
 import com.andef.myfinance.design.ui.theme.BrightLime
 import com.andef.myfinance.design.ui.theme.RichBlack
 import com.andef.myfinance.design.ui.theme.White
+import kotlinx.coroutines.delay
 
 @Composable
 fun UiBottomBar(
@@ -38,27 +50,93 @@ fun UiBottomBar(
     onItemClick: (UiBottomBarItem) -> Unit,
     isVisible: Boolean = true
 ) {
-    AnimatedVisibility(
-        visible = isVisible,
-        enter = slideInVertically(
-            initialOffsetY = { it },
-            animationSpec = tween(durationMillis = 800)
+    var bottomBarVisible by remember { mutableStateOf(true) }
+    var showBottomBar by remember { mutableStateOf(true) }
+    var showUpBottomBarIcon by remember { mutableStateOf(false) }
+    LaunchedEffect(bottomBarVisible) {
+        if (bottomBarVisible) {
+            showUpBottomBarIcon = false
+            delay(900)
+            showBottomBar = true
+        } else {
+            showBottomBar = false
+            delay(900)
+            showUpBottomBarIcon = true
+        }
+    }
+    Box {
+        AnimatedVisibility(
+            visible = isVisible && showBottomBar,
+            enter = slideInVertically(
+                initialOffsetY = { it },
+                animationSpec = tween(durationMillis = 800)
+            ),
+            exit = slideOutVertically(
+                targetOffsetY = { it },
+                animationSpec = tween(durationMillis = 800)
+            )
+        ) {
+            Box {
+                MainContent(
+                    items = items,
+                    selectedItem = selectedItem,
+                    onItemClick = onItemClick
+                )
+                CurrentVisibleButton(
+                    modifier = Modifier.align(Alignment.TopStart),
+                    contentDescription = "Скрыть панель навигации",
+                    painter = painterResource(R.drawable.arrow_drop_down),
+                    onClick = { bottomBarVisible = false }
+                )
+            }
+        }
+        AnimatedVisibility(
+            visible = isVisible && showUpBottomBarIcon,
+            enter = slideInVertically(
+                initialOffsetY = { it },
+                animationSpec = tween(durationMillis = 800)
+            ),
+            exit = slideOutVertically(
+                targetOffsetY = { it },
+                animationSpec = tween(durationMillis = 800)
+            )
+        ) {
+            CurrentVisibleButton(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .navigationBarsPadding(),
+                painter = painterResource(R.drawable.arrow_drop_up),
+                contentDescription = "Раскрыть панель навигации",
+                onClick = { bottomBarVisible = true }
+            )
+        }
+    }
+}
+
+@Composable
+private fun BoxScope.CurrentVisibleButton(
+    modifier: Modifier = Modifier,
+    painter: Painter,
+    contentDescription: String,
+    onClick: () -> Unit
+) {
+    IconButton(
+        modifier = modifier,
+        colors = IconButtonDefaults.iconButtonColors(
+            containerColor = RichBlack,
+            contentColor = White
         ),
-        exit = slideOutVertically(
-            targetOffsetY = { it },
-            animationSpec = tween(durationMillis = 800)
-        )
+        onClick = onClick
     ) {
-        MainContent(
-            items = items,
-            selectedItem = selectedItem,
-            onItemClick = onItemClick
+        Icon(
+            painter = painter,
+            contentDescription = contentDescription
         )
     }
 }
 
 @Composable
-private fun MainContent(
+private fun BoxScope.MainContent(
     items: List<UiBottomBarItem>,
     selectedItem: @Composable (UiBottomBarItem) -> Boolean,
     onItemClick: (UiBottomBarItem) -> Unit
@@ -70,7 +148,7 @@ private fun MainContent(
             .fillMaxWidth()
             .navigationBarsPadding()
             .padding(12.dp)
-            .clip(RoundedCornerShape(32.dp))
+            .clip(shape = shape)
     ) {
         Row(
             modifier = Modifier
@@ -106,9 +184,9 @@ private fun RowScope.AllItemsUi(
                     } else {
                         Color.Transparent
                     },
-                    shape = RoundedCornerShape(32.dp)
+                    shape = shape
                 )
-                .clip(shape = RoundedCornerShape(32.dp))
+                .clip(shape = shape)
                 .clickable(
                     onClick = {
                         if (!selectedItem) onItemClick(item)
@@ -144,3 +222,5 @@ private fun RowScope.IconAndText(selectedItem: Boolean, item: UiBottomBarItem) {
         Text(text = item.title, color = RichBlack)
     }
 }
+
+private val shape = RoundedCornerShape(size = 32.dp)
