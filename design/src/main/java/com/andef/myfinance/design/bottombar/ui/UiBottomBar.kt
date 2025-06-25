@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.andef.myfinance.design.R
 import com.andef.myfinance.design.bottombar.item.UiBottomBarItem
 import com.andef.myfinance.design.ui.theme.BrightLime
@@ -56,25 +57,19 @@ fun UiBottomBar(
     LaunchedEffect(bottomBarVisible) {
         if (bottomBarVisible) {
             showUpBottomBarIcon = false
-            delay(900)
+            delay(650)
             showBottomBar = true
         } else {
             showBottomBar = false
-            delay(900)
+            delay(650)
             showUpBottomBarIcon = true
         }
     }
     Box {
         AnimatedVisibility(
             visible = isVisible && showBottomBar,
-            enter = slideInVertically(
-                initialOffsetY = { it },
-                animationSpec = tween(durationMillis = 800)
-            ),
-            exit = slideOutVertically(
-                targetOffsetY = { it },
-                animationSpec = tween(durationMillis = 800)
-            )
+            enter = animEnter,
+            exit = animExit
         ) {
             Box {
                 MainContent(
@@ -92,20 +87,18 @@ fun UiBottomBar(
         }
         AnimatedVisibility(
             visible = isVisible && showUpBottomBarIcon,
-            enter = slideInVertically(
-                initialOffsetY = { it },
-                animationSpec = tween(durationMillis = 800)
-            ),
-            exit = slideOutVertically(
-                targetOffsetY = { it },
-                animationSpec = tween(durationMillis = 800)
-            )
+            enter = animEnter,
+            exit = animExit
         ) {
             CurrentVisibleButton(
                 modifier = Modifier
                     .padding(12.dp)
                     .navigationBarsPadding(),
-                painter = painterResource(R.drawable.arrow_drop_up),
+                painter = if (isVisible && showUpBottomBarIcon) {
+                    painterResource(R.drawable.arrow_drop_up)
+                } else {
+                    painterResource(R.drawable._switch)
+                },
                 contentDescription = "Раскрыть панель навигации",
                 onClick = { bottomBarVisible = true }
             )
@@ -129,6 +122,7 @@ private fun BoxScope.CurrentVisibleButton(
         onClick = onClick
     ) {
         Icon(
+            tint = White,
             painter = painter,
             contentDescription = contentDescription
         )
@@ -204,7 +198,7 @@ private fun RowScope.AllItemsUi(
 @Composable
 private fun RowScope.IconAndText(selectedItem: Boolean, item: UiBottomBarItem) {
     Icon(
-        modifier = Modifier.size(26.dp),
+        modifier = Modifier.size(24.dp),
         painter = if (selectedItem) {
             painterResource(item.selectedItemResId)
         } else {
@@ -219,8 +213,18 @@ private fun RowScope.IconAndText(selectedItem: Boolean, item: UiBottomBarItem) {
     )
     if (selectedItem) {
         Spacer(modifier = Modifier.padding(3.dp))
-        Text(text = item.title, color = RichBlack)
+        Text(text = item.title, color = RichBlack, fontSize = 14.sp)
     }
 }
 
 private val shape = RoundedCornerShape(size = 32.dp)
+
+private val animEnter = slideInVertically(
+    initialOffsetY = { it },
+    animationSpec = tween(durationMillis = 600)
+)
+
+private val animExit = slideOutVertically(
+    targetOffsetY = { it },
+    animationSpec = tween(durationMillis = 600)
+)
