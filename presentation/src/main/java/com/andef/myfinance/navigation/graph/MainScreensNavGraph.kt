@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.andef.myfinance.ViewModelFactory
 import com.andef.myfinance.navigation.Screen
+import com.andef.myfinance.presentation.income.IncomeMainScreen
 
 fun NavGraphBuilder.mainScreensNavGraph(
     navHostController: NavHostController,
@@ -18,7 +19,11 @@ fun NavGraphBuilder.mainScreensNavGraph(
         route = Screen.MainScreens.route
     ) {
         composable(route = Screen.MainScreens.IncomeMainScreen.route) {
-
+            IncomeMainScreen(
+                navHostController = navHostController,
+                paddingValues = paddingValues,
+                viewModelFactory = viewModelFactory
+            )
         }
         composable(route = Screen.MainScreens.ExpenseMainScreen.route) {
 

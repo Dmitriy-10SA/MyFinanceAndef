@@ -94,11 +94,7 @@ fun UiBottomBar(
                 modifier = Modifier
                     .padding(12.dp)
                     .navigationBarsPadding(),
-                painter = if (isVisible && showUpBottomBarIcon) {
-                    painterResource(R.drawable.arrow_drop_up)
-                } else {
-                    painterResource(R.drawable._switch)
-                },
+                painter = painterResource(R.drawable.arrow_drop_up),
                 contentDescription = "Раскрыть панель навигации",
                 onClick = { bottomBarVisible = true }
             )
