@@ -1,4 +1,4 @@
-package com.andef.myfinance
+package com.andef.myfinance.ui
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

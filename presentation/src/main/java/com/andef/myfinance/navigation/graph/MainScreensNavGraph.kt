@@ -8,11 +8,14 @@ import androidx.navigation.navigation
 import com.andef.myfinance.ViewModelFactory
 import com.andef.myfinance.navigation.Screen
 import com.andef.myfinance.presentation.income.IncomeMainScreen
+import java.time.LocalDate
 
 fun NavGraphBuilder.mainScreensNavGraph(
     navHostController: NavHostController,
     viewModelFactory: ViewModelFactory,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    mainStartDate: LocalDate,
+    mainEndDate: LocalDate
 ) {
     navigation(
         startDestination = Screen.MainScreens.IncomeMainScreen.route,
@@ -22,7 +25,9 @@ fun NavGraphBuilder.mainScreensNavGraph(
             IncomeMainScreen(
                 navHostController = navHostController,
                 paddingValues = paddingValues,
-                viewModelFactory = viewModelFactory
+                viewModelFactory = viewModelFactory,
+                mainStartDate = mainStartDate,
+                mainEndDate = mainEndDate
             )
         }
         composable(route = Screen.MainScreens.ExpenseMainScreen.route) {

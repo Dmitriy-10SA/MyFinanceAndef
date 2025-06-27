@@ -6,12 +6,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.andef.myfinance.ViewModelFactory
 import com.andef.myfinance.navigation.Screen
+import java.time.LocalDate
 
 @Composable
 fun AppNavGraph(
     navHostController: NavHostController,
     viewModelFactory: ViewModelFactory,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    mainStartDate: LocalDate,
+    mainEndDate: LocalDate
 ) {
     NavHost(
         navController = navHostController,
@@ -20,7 +23,9 @@ fun AppNavGraph(
         mainScreensNavGraph(
             navHostController = navHostController,
             viewModelFactory = viewModelFactory,
-            paddingValues = paddingValues
+            paddingValues = paddingValues,
+            mainStartDate = mainStartDate,
+            mainEndDate = mainEndDate
         )
     }
 }
